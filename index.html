@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Darkgorkha</title>
+    <meta name="theme-color" content="#0ea5e9" />
+    <script>
+      (function () {
+        var settingsKey = "darkgorkha_client_settings";
+        var defaultSettings = { theme: "system", reducedMotion: false, compactMode: false };
+        var root = document.documentElement;
+
+        function getSystemTheme() {
+          try {
+            return window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches
+              ? "light"
+              : "default";
+          } catch (error) {
+            return "default";
+          }
+        }
+
+        function resolveTheme(theme) {
+          return theme === "system" ? getSystemTheme() : theme;
+        }
+
+        function applyTheme(settings) {
+          var theme = resolveTheme(settings.theme || "system");
+          root.classList.remove("theme-default", "theme-light", "theme-midnight", "theme-graphite", "reduce-motion", "compact-ui");
+          root.classList.add(theme === "light" ? "theme-light" : theme === "midnight" ? "theme-midnight" : theme === "graphite" ? "theme-graphite" : "theme-default");
+
+          if (settings.reducedMotion) {
+            root.classList.add("reduce-motion");
+          }
+
+          if (settings.compactMode) {
+            root.classList.add("compact-ui");
+          }
+        }
+
+        try {
+          var raw = localStorage.getItem(settingsKey);
+          var parsed = raw ? JSON.parse(raw) : defaultSettings;
+          applyTheme(Object.assign({}, defaultSettings, parsed));
+        } catch (error) {
+          applyTheme(defaultSettings);
+        }
+      })();
+    </script>
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" type="image/svg+xml" href="/icons/logo-dg2.svg" />
+    <link rel="shortcut icon" href="/icons/logo-dg2.svg" />
+    <link rel="apple-touch-icon" href="/icons/logo-dg2.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+    <script type="module" crossorigin src="/assets/index-DVmiMDwW.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/react-core-3QO6uzqR.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-C-9Sp5Sc.js">
+    <link rel="modulepreload" crossorigin href="/assets/react-dom-B_7EYRU6.js">
+    <link rel="modulepreload" crossorigin href="/assets/router-BoAWXbbv.js">
+    <link rel="modulepreload" crossorigin href="/assets/react-utils-48T1I5ch.js">
+    <link rel="modulepreload" crossorigin href="/assets/background-removal-6KdxP__J.js">
+    <link rel="modulepreload" crossorigin href="/assets/axios-42ANG6Sg.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-BNRint5k.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
